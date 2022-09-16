@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>My Room</title>
+    <link href="css/editing.css"
+          rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+<body style="background-color: #ccc;">
+<div class="container">
+    <div class="main-body">
+        <div class="card">
+            <div class="card-body">
+                <p style="font-size:23px;font-family: 'Times New Roman'" th:text="|${student.getName()}|">name</p>
+                <p th:text="|Email : ${student.getEmail()}">email</p>
+                <p th:text="|Year of birth : ${student.getYear()}">email</p>
+                <hr>
+            <div th:if="${mygroup}">
+                <p th:text="|Group : ${mygroup.getName()}">name of group</p>
+                <form th:method="PATCH" th:action="@{/admin/students/{id}/setfree(id=${student.getId()})}">
+                    <input type="submit" value="Set free group" class="btn btn-danger"/>
+                </form>
+
+            </div>
+
+            <div th:if="${groups}">
+                <p>Student has not been joined to any group</p>
+                <form th:method="PATCH" th:action="@{/admin/students/{id}/assign(id=${student.getId()})}">
+                    <label for="groups">Choose a group:</label>
+                    <select th:object="${group}" th:field="*{id}" id="groups">
+                        <option th:each="group:${groups}" th:value="${group.getId()}" th:text="${group.getName()}">
+                        </option>
+                    </select>
+                    <input type="submit" value="Set group" class="btn btn-primary"/>
+                </form>
+            </div>
+            <hr>
+
+            <div th:if="${flag}">
+                <p>Student has not enrolled in any subjects</p>
+            </div>
+            <div th:if="${not flag}">
+                <p>Enrolled courses of this student:</p>
+                <div th:each="subject : ${subjects}">
+                    <p th:text="|${subject.getName()}|">value</p>
+                </div>
+            </div>
+            <hr>
+            <form th:method="POST" th:action="@{/admin/students/{id}/addsubject(id=${student.getId()})}"
+                  th:object="${subject}">
+                <label for="subjects">Choose subject to enroll:</label>
+                <select th:object="${subject}" th:field="*{id}" id="subjects">
+                    <option th:each="subject:${subjectsToEnroll}" th:value="${subject.getId()}"
+                            th:text="${subject.getName()}">
+                    </option>
+                </select>
+                <input type="submit" value="Enroll"/>
+            </form>
+
+
+            <hr>
+            <a th:href="@{/admin/students/{id}/edit(id=${student.getId()})}">Edit</a>
+            <hr>
+            <form th:method="DELETE" th:action="@{/admin/students/{id}(id=${student.getId()})}">
+                <input type="submit" value="Delete"/>
+            </form>
+        </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

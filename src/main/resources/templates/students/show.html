@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <style>
+        div {
+            display: block;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            background-color: #f1f1f1;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>My Room</title>
+</head>
+<body>
+
+<p style="font-size:23px;font-family: 'Times New Roman'" th:text="|${student.getName()}|">name</p>
+<p th:text="|Email : ${student.getEmail()}">email</p>
+<p th:text="|Year of birth : ${student.getYear()}">email</p>
+
+<hr>
+
+<!--<h2>Books of person:</h2>-->
+<div th:if="${condition}">
+    <p th:text="|Group : ${group}">email</p>
+</div>
+
+<div th:if="${not condition}">
+    <p>Student has not been joined to any group</p>
+</div>
+<hr>
+
+<div th:if="${flag}">
+    <p>Student has not enrolled in any subjects</p>
+</div>
+<div th:if="${not flag}">
+    <div th:each="subject : ${subjects}">
+        <p th:text="|${subject.getName()}|">value</p>
+    </div>
+</div>
+
+<hr>
+<a th:href="@{/students/{id}/edit(id=${student.getId()})}">Edit</a>
+<hr>
+<form th:method="DELETE" th:action="@{/students/{id}(id=${student.getId()})}">
+    <input type="submit" value="Delete"/>
+</form>
+</body>
+</html>

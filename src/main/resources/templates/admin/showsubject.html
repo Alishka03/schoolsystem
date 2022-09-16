@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <style>
+        div {
+            display: block;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            background-color: #f1f1f1;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <title>Subject</title>
+</head>
+<body>
+<p> Subject:</p>
+<p th:text="|${subject.getName()} - ${subject.getDescription()}|">name</p>
+<p>Teacher:</p>
+<p th:text="${subject.getTeacher()}">Teacher</p>
+<hr>
+<!--<div th:each="student : ${students}">-->
+<!--    <p th:text = "|${student.getName()} id:${student.getId()}|">VALUE</p>-->
+<!--</div>-->
+<div class="container my-2">
+    <h1>Enrolled students:</h1>
+
+    <table border="1" class="table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>
+                <p>Student name</p>
+            </th>
+            <th> Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}">
+            <td th:text="|${student.getName()} ${student.getLastname()} , id:${student.getId()}|" th:object="${student}"
+                th:value="${student.getId()}"></td>
+            <td>
+                <form th:method="POST"
+                      th:action="@{/admin/deletefromsubject/{id}/{student_id}(id=${subject.getId()} , student_id=${student.getId()})}">
+                    <!--                          "/deletefromsubject/{id}/{student_id}"-->
+                    <input type="submit" value="Leave" class="btn btn-danger"/>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+<fieldset>
+    <form th:method="DELETE" th:action="@{/admin/subjects/{id}(id=${subject.getId()})}">
+        <input type="submit" value="Delete"/>
+    </form>
+</fieldset>
+<!--<div th:if="${!empty}">-->
+<!--    <div th:each="student : ${students}">-->
+<!--        <p th:text="|${student.getName()} ${student.getLastname()}|">value</p>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<hr>-->
+<!--<form th:method="DELETE" th:action="@{/admin/groups/{id}(id=${group.getId()})}">-->
+<!--    <input type="submit" value="Delete"/>-->
+<!--</form>-->
+<!--<h2>Books of person:</h2>-->
+<!--<div th:if="${mygroup}">-->
+<!--    <p th:text="|Group : ${mygroup.getName()}">name of group</p>-->
+<!--</div>-->
+
+<!--<div th:if="${groups}">-->
+<!--    <p>Student has not been joined to any group</p>-->
+<!--    <form th:method="PATCH" th:action="@{/admin/students/{id}/assign(id=${student.getId()})}">-->
+<!--        <label for="groups">Choose a group:</label>-->
+<!--        <select th:object="${group}" th:field="*{id}" id="groups">-->
+<!--            <option th:each="group:${groups}" th:value="${group.getId()}" th:text="${group.getName()}">-->
+<!--            </option>-->
+<!--        </select>-->
+<!--        <input type="submit" value="Set group"/>-->
+<!--    </form>-->
+<!--</div>-->
+<!--<hr>-->
+
+<!--<div th:if="${flag}">-->
+<!--    <p>Student has not enrolled in any subjects</p>-->
+<!--</div>-->
+<!--<div th:if="${not flag}">-->
+<!--    <div th:each="subject : ${subjects}">-->
+<!--        <p th:text="|${subject.getName()}|">value</p>-->
+<!--    </div>-->
+<!--</div>-->
+
+<hr>
+
+</body>
+</html>

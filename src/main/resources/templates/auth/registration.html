@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <style>
+        .body {
+            margin: 0;
+            padding: 0;
+            background-color: #17a2b8;
+            height: 100vh;
+        }
+        #login .container #login-row #login-column #login-box {
+            margin-top: 40px;
+            max-width: 600px;
+            height: 780px;
+            border: 1px solid #9C9C9C;
+            background-color: #EAEAEA;
+        }
+        #login .container #login-row #login-column #login-box #login-form {
+            padding: 20px;
+        }
+        #login .container #login-row #login-column #login-box #login-form #register-link {
+            margin-top: -85px;
+        }
+    </style>
+</head>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<body>
+<div id="login" class="body">
+    <h3 class="text-center text-white pt-5">Login form</h3>
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-6">
+                <div id="login-box" class="col-md-12">
+                        <form th:method="POST" id="login-form" th:action="@{/auth/registration}" th:object="${student}">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <h3 class="text-center text-info">Registration</h3>
+                        <div class="form-group">
+                            <label for="name" class="text-info">First Name: </label>
+                            <input type="text" th:field="*{name}" id="name" class="form-control"/>
+                            <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name Error</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname" class="text-info">LastName: </label>
+                            <input type="text" th:field="*{lastname}" id="lastname" class="form-control"/>
+                            <div style="color:red" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">lastname Error</div>
+                            <br/>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="text-info">Введите mail: </label>
+                            <input type="text" th:field="*{email}" id="email" class="form-control"/>
+                            <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email Error</div>
+                            <br/>
+                        </div>
+                        <div class="form-group">
+
+                            <label for="year" class="text-info">Year of birth:</label><br>
+                            <input type="text" th:field="*{year}" id="year" class="form-control"/>
+                            <div style="color:red" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year of birth Error
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="text-info">Username:</label><br>
+                            <input type="text" name="username" id="username" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="   text-info">Password:</label><br>
+                            <input type="password" name="password" id="password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<form th:method="POST" th:action="@{/auth/registration}" th:object="${student}">-->
+<!--    <label for="name">Введите имя : </label>-->
+<!--    <input type="text" th:field="*{name}" id="name"/>-->
+<!--    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name Error</div>-->
+<!--    <br/>-->
+<!--    <label for="lastname">Введите Фамилию : </label>-->
+<!--    <input type="text" th:field="*{lastname}" id="lastname"/>-->
+<!--    <div style="color:red" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">lastname Error</div>-->
+<!--    <br/>-->
+
+<!--    <label for="username">Введите имя пользователя: </label>-->
+<!--    <input type="text" th:field="*{username}" id="username"/>-->
+<!--    <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</div>-->
+<!--    <br/>-->
+
+<!--    <label for="username">Введите mail: </label>-->
+<!--    <input type="text" th:field="*{email}" id="email"/>-->
+<!--    <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email Error</div>-->
+<!--    <br/>-->
+<!--    <label for="year">Введите год рождения: </label>-->
+<!--    <input type="text" th:field="*{year}" id="year"/>-->
+<!--    <div style="color:red" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year of birth Error-->
+<!--    </div>-->
+<!--    <br/>-->
+<!--    <label for="password">Введите пароль: </label>-->
+<!--    <input type="password" th:field="*{password}" id="password"/>-->
+<!--    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>-->
+<!--    <br/>-->
+<!--    <input type="submit" value="Sign up!"/>-->
+<!--</form>-->
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Teachers</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style type="text/css">
+        a {
+            font-size: 90%;
+            font-family: Times New Roman, Arial, Helvetica, sans-serif;
+            color: #333366;
+        }
+    </style>
+</head>
+<body>
+<h2>List of Teachers in School</h2>
+<div class="main-body">
+    <div class="list-group">
+        <h1 class="list-group-item list-group-item-action active" aria-current="true"
+            th:text="|List of teachers at School. Total teachers :${teachers.size}|">
+            List of teachers in School
+        </h1>
+        <div th:each="teacher : ${teachers}">
+            <a style="font-size: larger"
+               th:href = "@{teachers/{id}(id = ${teacher.getId()})}" th:text = "|${teacher.getName()} id:${teacher.getId()}|"
+               class="list-group-item list-group-item-action">VALUE</a>
+        </div>
+    </div>
+</div>
+<hr>
+<!--<a href = "/books/new">Create new book</a>-->
+<!--<hr>-->
+<!--<a href = "/people">List of people in a library</a>-->
+</body>
+</html>
