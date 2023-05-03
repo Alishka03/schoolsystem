@@ -7,7 +7,7 @@
 <body>
 <h1>Edit Your Profile</h1>
 <div class="container" style="max-width: 600px" >
-    <form th:method="PATCH" th:action="@{/editUser}" th:object = "${studentToEdit}">
+    <form th:method="PATCH" th:action="@{/editUser}" th:object = "${student}">
         <label for="name">Enter name</label>
         <input type="text" th:field="*{name}" id="name" th:value="${student.name}" />
         <div style = "color:red" th:if="${#fields.hasErrors('name')}" th:errors = "*{name} " >Name error</div>
@@ -19,6 +19,8 @@
         <label for="year">Enter year of born: </label>
         <input type="text" th:field="*{year}" id="year" th:value="${student.year}" />
         <div style = "color:red" th:if="${#fields.hasErrors('year')}" th:errors = "*{year}">Year error</div>
+        <label for="username">Enter username: </label>
+        <input type="text" th:field="*{username}" id="username" th:value="${student.username}" />
         <label for="email">Enter email: </label>
         <input type="text" th:field="*{email}" id="email" th:value="${student.email}" />
         <label for="password">Enter password: </label>

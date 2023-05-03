@@ -70,8 +70,7 @@ public class StudentController {
 
     @PatchMapping("/editUser")
     public String editing(@ModelAttribute("studentToEdit") Student student){
-        System.out.println("Student to edit" + student.getPassword()+student.getName()+student.getUsername()+student.getLastname()+student.getYear());
-        studentService.editStudent(loggedStudent(),student);
+        studentService.editing(student, loggedStudent().getId());
         return "redirect:/myprofile";
     }
     @PostMapping("/leavesubject/{id}")

@@ -102,4 +102,10 @@ public class StudentService {
         }
         studentRepository.save(st);
     }
+    @Transactional
+    public void editing(Student st,int id){
+        st.setId(id);
+        System.out.println(st.getName()+"ASKALSKLAKSL");
+        studentRepository.save(st);
+    }
 }
