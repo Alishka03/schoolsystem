@@ -62,7 +62,17 @@ public class Student {
     private Group group;
     @Column(name = "code")
     private String code;
+    @Column(name = "enabled")
+    private boolean enabled;
     public Student() {
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public String getCode() {

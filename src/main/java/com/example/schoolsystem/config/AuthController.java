@@ -3,6 +3,7 @@ package com.example.schoolsystem.config;
 import com.example.schoolsystem.services.RegistrationService;
 import com.example.schoolsystem.student.Student;
 import com.example.schoolsystem.util.StudentValidator;
+import org.springframework.mail.MailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,7 @@ import javax.validation.Valid;
 public class AuthController {
     private final StudentValidator studentValidator;
     private final RegistrationService registrationService;
+
     public AuthController(StudentValidator studentValidator, RegistrationService registrationService) {
         this.studentValidator = studentValidator;
         this.registrationService = registrationService;
@@ -30,12 +32,12 @@ public class AuthController {
     }
     @PostMapping("/registration")
     public  String performRegistration(@ModelAttribute("student")@Valid Student student,
-                                       BindingResult bind){
+                                       BindingResult bind,Model model){
         studentValidator.validate(student , bind);
         if (bind.hasErrors()) {
             return "auth/registration";
         }
-
+        model.addAttribute("student",student);
         registrationService.register(student);
         return "redirect:/auth/login";
     }

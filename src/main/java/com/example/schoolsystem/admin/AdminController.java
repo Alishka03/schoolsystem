@@ -129,14 +129,12 @@ public class AdminController {
         studentService.delete(id);
         return "redirect:/admin/students";
     }
-
     @PostMapping("/deletefromsubject/{id}/{student_id}")
     public String deleteFromSubject(@PathVariable("id") int id, @PathVariable("student_id") int student_id) {
         studentService.unfollowSubject(student_id, subjectService.findOne(id).get());
         subjectService.deleteStudent(student_id, subjectService.findOne(id).get());
         return "redirect:/admin/subjects/" + id;
     }
-
     @PatchMapping("/students/{id}/assign")
     public String assignGroup(@PathVariable("id") int id, @ModelAttribute("group") Group group) {
         Group mygroup = groupService.findById(group.getId());

@@ -7,6 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name="Groups")
+
 public class Group {
     @Id
     @Column(name = "id")

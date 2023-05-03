@@ -19,6 +19,7 @@ import java.util.Set;
 public class StudentController {
     private final StudentService studentService;
     private final SubjectService subjectService;
+
     public StudentController(StudentService studentService, SubjectService subjectService) {
         this.studentService = studentService;
         this.subjectService = subjectService;
@@ -42,25 +43,41 @@ public class StudentController {
 
         return "students/mypage";
     }
+
+    @GetMapping("/edit")
+    public String editingStudent(Model model) {
+        model.addAttribute("student", loggedStudent());
+        model.addAttribute("studentToEdit",new Student());
+        return "students/edit";
+    }
+
     @GetMapping("/enroll")
-    public String enroll(Model model){
+    public String enroll(Model model) {
         Student student = loggedStudent();
-        model.addAttribute("subjects" , gettingSubjects());
-        model.addAttribute("subject" , new Subject());
-        model.addAttribute("enrolledsubjects" , student.getSubjects());
+        model.addAttribute("subjects", gettingSubjects());
+        model.addAttribute("subject", new Subject());
+        model.addAttribute("enrolledsubjects", student.getSubjects());
         return "students/enroll";
     }
+
     @PostMapping("/enrolltosubject/{id}")
-    public String enrollingToSubject(@PathVariable("id") int id,@ModelAttribute("subject") Subject subject){
+    public String enrollingToSubject(@PathVariable("id") int id, @ModelAttribute("subject") Subject subject) {
         Subject sub = subjectService.findOne(id).get();
-        subjectService.enrollCurrentUser(loggedStudent() , sub);
-        studentService.enrollingByCurrentUser(loggedStudent() , sub);
+        subjectService.enrollCurrentUser(loggedStudent(), sub);
+        studentService.enrollingByCurrentUser(loggedStudent(), sub);
         return "redirect:/enroll";
     }
+
+    @PatchMapping("/editUser")
+    public String editing(@ModelAttribute("studentToEdit") Student student){
+        System.out.println("Student to edit" + student.getPassword()+student.getName()+student.getUsername()+student.getLastname()+student.getYear());
+        studentService.editStudent(loggedStudent(),student);
+        return "redirect:/myprofile";
+    }
     @PostMapping("/leavesubject/{id}")
-    public String leavingSubject(@PathVariable("id") int id , @ModelAttribute("subject") Subject subject){
-        System.out.println(subject.getId()+"SUB:ID , {ID}"+id);
-        studentService.leavesubject(loggedStudent() , subjectService.findOne(subject.getId()).get());
+    public String leavingSubject(@PathVariable("id") int id, @ModelAttribute("subject") Subject subject) {
+        System.out.println(subject.getId() + "SUB:ID , {ID}" + id);
+        studentService.leavesubject(loggedStudent(), subjectService.findOne(subject.getId()).get());
         return "redirect:/enroll";
     }
 
@@ -70,6 +87,7 @@ public class StudentController {
         Student s = studentService.findOne(st.getStudent().getId());
         return s;
     }
+
     public List<Subject> gettingSubjects() {
         List<Subject> result = new ArrayList<Subject>();
         Student student = loggedStudent();
@@ -86,4 +104,5 @@ public class StudentController {
         }
         return result;
     }
+
 }

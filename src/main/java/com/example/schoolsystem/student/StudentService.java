@@ -93,4 +93,13 @@ public class StudentService {
         subject.getEnrolledStudents().remove(student);
     }
 
+    public void editStudent(Student st ,Student student){
+        st.setEmail(student.getEmail());
+        st.setName(student.getName());
+        st.setLastname(student.getLastname());
+        if(!student.getPassword().equals("")){
+            student.setPassword(student.getPassword());
+        }
+        studentRepository.save(st);
+    }
 }
